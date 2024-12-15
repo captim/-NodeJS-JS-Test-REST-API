@@ -25,14 +25,67 @@ module.exports = {
         .then((product) => {
             return res.status(200).json({
                 status: true,
-                data: product.toJSON(),
+                data: product.toJSON()
             });
         })
         .catch((err) => {
             return res.status(500).json({
                 status: false,
-                error: err,
+                error: err
             });
         });
-      },
+    },
+
+    getProductById: (req, res) => {
+		const { params: { productId } } = req;
+		ProductModel.findProduct({ id: productId })
+		.then((product) => {
+			return res.status(200).json({
+				status: true,
+				data: product.toJSON()
+			});
+		})
+		.catch((err) => {
+			return res.status(500).json({
+				status: false,
+				error: err
+			})
+		})
+    },
+	
+	deleteProduct: (req, res) => {
+		const { params: { productId } } = req;
+		ProductModel.deleteProduct({ id: productId })
+		.then((product) => {
+			return res.status(200).json({
+				status: true
+			});
+		})
+		.catch((err) => {
+			return res.status(500).json({
+				status: false,
+				error: err
+			})
+		})
+	},
+
+	updateProduct: (req, res) => {
+		const { body, params: { productId } } = req;
+    	ProductModel.updateProduct({ id: productId }, body)
+      	.then(() => {
+        	return ProductModel.findProduct({ id: productId });
+      	})
+      	.then((product) => {
+        	return res.status(200).json({
+          		status: true,
+          		data: product.toJSON(),
+        	});
+      	})
+      	.catch((err) => {
+        	return res.status(500).json({
+          		status: false,
+          		error: err,
+        	});
+      	});
+	}
 }
