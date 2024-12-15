@@ -8,13 +8,13 @@ module.exports = {
             .then((products) => {
                 return res.status(200).json({
                 status: true,
-                data: products,
+                data: products
             });
         })
         .catch((err) => {
             return res.status(500).json({
                 status: false,
-                error: err,
+                error: err
             });
         });
     },
@@ -78,13 +78,13 @@ module.exports = {
       	.then((product) => {
         	return res.status(200).json({
           		status: true,
-          		data: product.toJSON(),
+          		data: product.toJSON()
         	});
       	})
       	.catch((err) => {
         	return res.status(500).json({
           		status: false,
-          		error: err,
+          		error: err
         	});
       	});
 	}
